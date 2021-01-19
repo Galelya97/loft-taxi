@@ -1,9 +1,6 @@
 import React from "react";
 
 export class Header extends React.Component {
-  navigateTo = (page) => {
-    // this.setState({ currentPage: page });
-  };
   render() {
     return (
       <header>
@@ -12,29 +9,23 @@ export class Header extends React.Component {
             <li>
               <button
                 onClick={() => {
-                  this.navigateTo("home");
+                  this.props.navigateTo("map");
                 }}
               >
-                Home
+                Map
               </button>
             </li>
             <li>
               <button
                 onClick={() => {
-                  this.navigateTo("about");
-                }}
-              >
-                About
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  this.navigateTo("profile");
+                  this.props.navigateTo("profile");
                 }}
               >
                 Profile
               </button>
+            </li>
+            <li>
+              <button onClick={this.props.onLogout}>Exit</button>
             </li>
           </ul>
         </nav>

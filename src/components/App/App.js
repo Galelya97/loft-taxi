@@ -1,40 +1,53 @@
 import React from "react";
-import { Home } from "../home/Home";
-import { About } from "../about/About";
+import { Map } from "../map";
 import { Profile } from "../profile/Profile";
-import "./App.css";
 import { Header } from "../header";
-import { Login } from "../login";
+import { LoginPage } from "../loginPage";
+import { ToastContainer } from "react-toastify";
+import "normalize.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 const PAGES = {
-  home: <Home />,
-  about: <About />,
+  map: <Map />,
   profile: <Profile />,
 };
 
 class App extends React.Component {
-  state = { currentPage: "home", isLogin: false };
+  constructor(props) {
+    super(props);
+    this.state = { currentPage: "home", isLogin: false, login: "" };
+  }
 
   navigateTo = (page) => {
     this.setState({ currentPage: page });
   };
-  logIn = () => {
-    this.setState({ isLogin: true });
+  logIn = (login) => {
+    this.setState({ isLogin: true, login: login });
   };
-  render() {
-    if (this.state.isLogin) {
-      return (
-        <>
-          <Header />
+  logOut = () => {
+    this.setState({ isLogin: false });
+  };
 
-          <main>
-            <section>{PAGES[this.state.currentPage]}</section>
-          </main>
-        </>
-      );
-    } else {
-      return <Login onLogin={this.logIn} />;
-    }
+  render() {
+    return (
+      <>
+        {this.state.isLogin ? (
+          <>
+            <Header onLogout={this.logOut} navigateTo={this.navigateTo} />
+
+            {this.state.login}
+
+            <main>
+              <section>{PAGES[this.state.currentPage]}</section>
+            </main>
+          </>
+        ) : (
+          <LoginPage onLogin={this.logIn} />
+        )}
+        <ToastContainer hideProgressBar />
+      </>
+    );
   }
 }
 

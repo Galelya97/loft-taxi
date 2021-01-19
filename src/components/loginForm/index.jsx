@@ -35,10 +35,12 @@ export class LoginForm extends React.Component {
     this.setState({ password: event.target.value });
   };
   render() {
+    const { toggleForm } = this.props;
+
     return (
       <>
         <h1 className={s.title}>Войти</h1>
-        <Link href="#" onClick={this.props.toggleForm}>
+        <Link href="#" onClick={toggleForm}>
           Регистрация
         </Link>
         <form onSubmit={this.onSubmit} className={s.form}>

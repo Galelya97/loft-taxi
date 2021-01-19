@@ -73,10 +73,13 @@ export class RegistrationForm extends React.Component {
     this.setState({ name: event.target.value, nameError: "" });
   };
   render() {
+    const { isLoading, loginError, nameError, passwordError } = this.state;
+    const { toggleForm } = this.props;
+
     return (
       <>
         <h1 className={s.title}>Регистрация</h1>
-        <Link href="#" onClick={this.props.toggleForm}>
+        <Link href="#" onClick={toggleForm}>
           Вход
         </Link>
         <form onSubmit={this.onSubmit} className={s.form}>
@@ -87,9 +90,9 @@ export class RegistrationForm extends React.Component {
             type="email"
             name="email"
             fullWidth
-            disabled={this.state.isLoading}
-            error={this.state.loginError}
-            helperText={this.state.loginError}
+            disabled={isLoading}
+            error={loginError}
+            helperText={loginError}
           />
 
           <TextField
@@ -99,9 +102,9 @@ export class RegistrationForm extends React.Component {
             type="text"
             name="name"
             fullWidth
-            disabled={this.state.isLoading}
-            error={this.state.nameError}
-            helperText={this.state.nameError}
+            disabled={isLoading}
+            error={nameError}
+            helperText={nameError}
           />
 
           <TextField
@@ -111,9 +114,9 @@ export class RegistrationForm extends React.Component {
             type="password"
             name="password"
             fullWidth
-            disabled={this.state.isLoading}
-            error={this.state.passwordError}
-            helperText={this.state.passwordError}
+            disabled={isLoading}
+            error={passwordError}
+            helperText={passwordError}
           />
 
           <Button
@@ -122,12 +125,8 @@ export class RegistrationForm extends React.Component {
             variant="contained"
             color="primary"
             fullWidth
-            disabled={this.state.isLoading}
-            startIcon={
-              this.state.isLoading && (
-                <CircularProgress size={14} color="#fff" />
-              )
-            }
+            disabled={isLoading}
+            startIcon={isLoading && <CircularProgress size={14} color="#fff" />}
           >
             Регистрация
           </Button>

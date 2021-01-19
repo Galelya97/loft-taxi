@@ -2,6 +2,8 @@ import React from "react";
 
 export class Header extends React.Component {
   render() {
+    const { navigateTo, onLogout } = this.props;
+
     return (
       <header>
         <nav>
@@ -9,7 +11,7 @@ export class Header extends React.Component {
             <li>
               <button
                 onClick={() => {
-                  this.props.navigateTo("map");
+                  navigateTo("map");
                 }}
               >
                 Map
@@ -18,14 +20,14 @@ export class Header extends React.Component {
             <li>
               <button
                 onClick={() => {
-                  this.props.navigateTo("profile");
+                  navigateTo("profile");
                 }}
               >
                 Profile
               </button>
             </li>
             <li>
-              <button onClick={this.props.onLogout}>Exit</button>
+              <button onClick={onLogout}>Exit</button>
             </li>
           </ul>
         </nav>

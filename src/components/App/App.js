@@ -4,7 +4,7 @@ import { Profile } from "../profile/Profile";
 import { Header } from "../header";
 import { LoginPage } from "../loginPage";
 import { ToastContainer } from "react-toastify";
-import "normalize.css";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -14,32 +14,32 @@ const PAGES = {
 };
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { currentPage: "home", isLogin: false, login: "" };
-  }
+  state = { currentPage: "home", isLoggedIn: false, userLogin: "" };
 
   navigateTo = (page) => {
     this.setState({ currentPage: page });
   };
-  logIn = (login) => {
-    this.setState({ isLogin: true, login: login });
+  logIn = (userLogin) => {
+    this.setState({ isLoggedIn: true, userLogin: userLogin });
   };
   logOut = () => {
-    this.setState({ isLogin: false });
+    this.setState({ isLoggedIn: false });
   };
 
   render() {
+    const { isLoggedIn, userLogin, currentPage } = this.state;
+
     return (
       <>
-        {this.state.isLogin ? (
+        <CssBaseline />
+        {isLoggedIn ? (
           <>
             <Header onLogout={this.logOut} navigateTo={this.navigateTo} />
 
-            {this.state.login}
+            {userLogin}
 
             <main>
-              <section>{PAGES[this.state.currentPage]}</section>
+              <section>{PAGES[currentPage]}</section>
             </main>
           </>
         ) : (

@@ -12,6 +12,9 @@ export class LoginPage extends React.Component {
   };
 
   render() {
+    const { isLoginForm } = this.state;
+    const { onLogin } = this.props;
+
     return (
       <section className={s.flexRow}>
         <div className={s.containerLogo}>
@@ -19,11 +22,8 @@ export class LoginPage extends React.Component {
         </div>
         <div className={s.containerLogin}>
           <div className={s.login}>
-            {this.state.isLoginForm ? (
-              <LoginForm
-                onLogin={this.props.onLogin}
-                toggleForm={this.toggleForm}
-              />
+            {isLoginForm ? (
+              <LoginForm onLogin={onLogin} toggleForm={this.toggleForm} />
             ) : (
               <RegistrationForm toggleForm={this.toggleForm} />
             )}

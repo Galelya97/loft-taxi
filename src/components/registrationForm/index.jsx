@@ -4,23 +4,40 @@ import { Button, CircularProgress, Link, TextField } from "@material-ui/core";
 import { toast } from "react-toastify";
 
 export class RegistrationForm extends React.Component {
-  state = { login: "", password: "", name: "", isLoading: false };
+  state = {
+    login: "",
+    loginError: "",
+    password: "",
+    passwordError: "",
+    name: "",
+    nameError: "",
+    isLoading: false,
+  };
 
   onSubmit = (event) => {
     event.preventDefault();
 
+    let loginError,
+      passwordError,
+      nameError = "";
+
     if (!this.state.login) {
       toast.error("Введите логин");
-      return;
+      loginError = "Пустой Логин";
     }
 
     if (!this.state.password) {
       toast.error("Введите пароль");
-      return;
+      passwordError = "Пустой пароль";
     }
 
     if (!this.state.name) {
       toast.error("Введите имя");
+      nameError = "Пустое имя";
+    }
+
+    if (loginError || passwordError || nameError) {
+      this.setState({ loginError, passwordError, nameError });
       return;
     }
     // а есть ли такой
@@ -34,21 +51,26 @@ export class RegistrationForm extends React.Component {
 
     setTimeout(() => {
       this.setState({ isLoading: false });
-      toast.info("Вы зарегистрированы");
-      this.props.toggleForm();
+
+      if (this.state.login === "123@qwerty") {
+        this.setState({ loginError: "Такая почта уже занята" });
+      } else {
+        toast.info("Вы зарегистрированы");
+        this.props.toggleForm();
+      }
     }, 5000);
   };
 
   onLoginChange = (event) => {
-    this.setState({ login: event.target.value });
+    this.setState({ login: event.target.value, loginError: "" });
   };
 
   onPasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+    this.setState({ password: event.target.value, passwordError: "" });
   };
 
   onNameChange = (event) => {
-    this.setState({ name: event.target.value });
+    this.setState({ name: event.target.value, nameError: "" });
   };
   render() {
     return (
@@ -65,8 +87,9 @@ export class RegistrationForm extends React.Component {
             type="email"
             name="email"
             fullWidth
-            margin="normal"
             disabled={this.state.isLoading}
+            error={this.state.loginError}
+            helperText={this.state.loginError}
           />
 
           <TextField
@@ -76,8 +99,9 @@ export class RegistrationForm extends React.Component {
             type="text"
             name="name"
             fullWidth
-            margin="normal"
             disabled={this.state.isLoading}
+            error={this.state.nameError}
+            helperText={this.state.nameError}
           />
 
           <TextField
@@ -87,8 +111,9 @@ export class RegistrationForm extends React.Component {
             type="password"
             name="password"
             fullWidth
-            margin="normal"
             disabled={this.state.isLoading}
+            error={this.state.passwordError}
+            helperText={this.state.passwordError}
           />
 
           <Button

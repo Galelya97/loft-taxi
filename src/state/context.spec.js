@@ -10,7 +10,7 @@ describe("Context", () => {
       let logIn;
 
       render(
-        <AppProvider.Provider value={{ isLoggedIn: false }}>
+        <AppProvider>
           <Context.Consumer>
             {(value) => {
               isLoggedIn = value.isLoggedIn;
@@ -18,7 +18,7 @@ describe("Context", () => {
               return null;
             }}
           </Context.Consumer>
-        </AppProvider.Provider>
+        </AppProvider>
       );
 
       expect(isLoggedIn).toBe(false);

@@ -75,6 +75,7 @@ const LoginForm = (props) => {
           fullWidth
           disabled={isLoading}
           margin="normal"
+          data-testid="login-input"
         />
 
         <TextField
@@ -88,6 +89,7 @@ const LoginForm = (props) => {
           fullWidth
           disabled={isLoading}
           margin="normal"
+          data-testid="password-input"
         />
 
         <Button
@@ -100,6 +102,7 @@ const LoginForm = (props) => {
           startIcon={
             isLoading && <CircularProgress size={14} color="primary" />
           }
+          data-testid="login-button"
         >
           Войти
         </Button>

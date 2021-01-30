@@ -1,35 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./login.module.css";
 import logo from "../../assets/logo.png";
-import { LoginForm } from "../loginForm";
-import { RegistrationForm } from "../registrationForm";
+import LoginForm from "../loginForm";
+import RegistrationForm from "../registrationForm";
+import PropTypes from "prop-types";
 
-export class LoginPage extends React.Component {
-  state = { isLoginForm: true };
+const LoginPage = () => {
+  const [isLoginForm, setIsLoginForm] = useState(true);
 
-  toggleForm = () => {
-    this.setState({ isLoginForm: !this.state.isLoginForm });
+  const toggleForm = () => {
+    setIsLoginForm(!isLoginForm);
   };
 
-  render() {
-    const { isLoginForm } = this.state;
-    const { onLogin } = this.props;
+  return (
+    <section className={s.flexRow}>
+      <div className={s.containerLogo}>
+        <img src={logo} alt={"логотип"} />
+      </div>
+      <div className={s.containerLogin}>
+        <div className={s.login}>
+          {isLoginForm ? (
+            <LoginForm toggleForm={toggleForm} />
+          ) : (
+            <RegistrationForm toggleForm={toggleForm} />
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
 
-    return (
-      <section className={s.flexRow}>
-        <div className={s.containerLogo}>
-          <img src={logo} className={s.logo} />
-        </div>
-        <div className={s.containerLogin}>
-          <div className={s.login}>
-            {isLoginForm ? (
-              <LoginForm onLogin={onLogin} toggleForm={this.toggleForm} />
-            ) : (
-              <RegistrationForm toggleForm={this.toggleForm} />
-            )}
-          </div>
-        </div>
-      </section>
-    );
-  }
-}
+LoginPage.propTypes = {
+  onLogin: PropTypes.func,
+};
+
+export default LoginPage;

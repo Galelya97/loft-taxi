@@ -1,10 +1,10 @@
 import React from "react";
-import { About } from "./index";
+import { Map } from "./index";
 import { render } from "@testing-library/react";
 
-describe("About", () => {
+describe("Map", () => {
   it("renders correctly", () => {
-    const { container } = render(<About />);
-    expect(container.innerHTML).toMatch("About");
+    const { container } = render(<Map />);
+    expect(container.innerHTML).toMatch("Map");
   });
 });

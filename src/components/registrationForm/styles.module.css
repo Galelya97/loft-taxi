@@ -5,4 +5,20 @@
 .form {
   display: flex;
   flex-direction: column;
+  min-width: 250px;
+  min-height: 350px;
+}
+
+.alreadyRegistration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #828282;
+  margin-top: 33px;
+  font-size: 12px;
+}
+
+.toggleButton {
+  color: rgb(253, 191, 90);
+  cursor: pointer;
 }

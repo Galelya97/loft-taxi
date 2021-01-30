@@ -1,43 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./styles.module.css";
-import { Button, CircularProgress, Link, TextField } from "@material-ui/core";
+import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
 
-export class RegistrationForm extends React.Component {
-  state = {
-    login: "",
-    loginError: "",
-    password: "",
-    passwordError: "",
-    name: "",
-    nameError: "",
-    isLoading: false,
-  };
+const RegistrationForm = (props) => {
+  const { toggleForm } = props;
 
-  onSubmit = (event) => {
+  const [login, setLogin] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = (event) => {
     event.preventDefault();
 
     let loginError,
       passwordError,
       nameError = "";
 
-    if (!this.state.login) {
+    if (!login) {
       toast.error("Введите логин");
       loginError = "Пустой Логин";
     }
 
-    if (!this.state.password) {
+    if (!password) {
       toast.error("Введите пароль");
       passwordError = "Пустой пароль";
     }
 
-    if (!this.state.name) {
+    if (!name) {
       toast.error("Введите имя");
       nameError = "Пустое имя";
     }
 
     if (loginError || passwordError || nameError) {
-      this.setState({ loginError, passwordError, nameError });
+      setLoginError(loginError);
+      setPasswordError(passwordError);
+      setNameError(nameError);
       return;
     }
     // а есть ли такой
@@ -45,93 +48,105 @@ export class RegistrationForm extends React.Component {
     // if () {}
 
     // TODO reggistration
-    // this.props.onLogin(this.state.login);
 
-    this.setState({ isLoading: true });
+    setIsLoading(true);
 
     setTimeout(() => {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
 
-      if (this.state.login === "123@qwerty") {
-        this.setState({ loginError: "Такая почта уже занята" });
+      if (login === "123@qwerty") {
+        setLoginError("Такая почта уже занята");
       } else {
         toast.info("Вы зарегистрированы");
-        this.props.toggleForm();
+        toggleForm();
       }
-    }, 5000);
+    }, 2500);
   };
 
-  onLoginChange = (event) => {
-    this.setState({ login: event.target.value, loginError: "" });
+  const onLoginChange = (event) => {
+    setLogin(event.target.value);
+    setLoginError("");
   };
 
-  onPasswordChange = (event) => {
-    this.setState({ password: event.target.value, passwordError: "" });
+  const onPasswordChange = (event) => {
+    setPassword(event.target.value);
+    setPasswordError("");
   };
 
-  onNameChange = (event) => {
-    this.setState({ name: event.target.value, nameError: "" });
+  const onNameChange = (event) => {
+    setName(event.target.value);
+    setNameError("");
   };
-  render() {
-    const { isLoading, loginError, nameError, passwordError } = this.state;
-    const { toggleForm } = this.props;
 
-    return (
-      <>
-        <h1 className={s.title}>Регистрация</h1>
-        <Link href="#" onClick={toggleForm}>
-          Вход
-        </Link>
-        <form onSubmit={this.onSubmit} className={s.form}>
-          <TextField
-            label="Email:"
-            onChange={this.onLoginChange}
-            id="email"
-            type="email"
-            name="email"
-            fullWidth
-            disabled={isLoading}
-            error={loginError}
-            helperText={loginError}
-          />
+  return (
+    <>
+      <h1 className={s.title}>Регистрация</h1>
+      <form onSubmit={onSubmit} className={s.form}>
+        <TextField
+          label="Email*"
+          onChange={onLoginChange}
+          id="email"
+          type="email"
+          name="email"
+          margin="normal"
+          fullWidth
+          disabled={isLoading}
+          error={!!loginError}
+          helperText={loginError}
+        />
 
-          <TextField
-            label="Имя:"
-            onChange={this.onNameChange}
-            id="name"
-            type="text"
-            name="name"
-            fullWidth
-            disabled={isLoading}
-            error={nameError}
-            helperText={nameError}
-          />
+        <TextField
+          label="Как вас зовут?*"
+          onChange={onNameChange}
+          id="name"
+          type="text"
+          name="name"
+          margin="normal"
+          fullWidth
+          disabled={isLoading}
+          error={!!nameError}
+          helperText={nameError}
+        />
 
-          <TextField
-            label="Пароль:"
-            onChange={this.onPasswordChange}
-            id="password"
-            type="password"
-            name="password"
-            fullWidth
-            disabled={isLoading}
-            error={passwordError}
-            helperText={passwordError}
-          />
+        <TextField
+          label="Придумайте пароль*:"
+          onChange={onPasswordChange}
+          id="password"
+          type="password"
+          name="password"
+          margin="normal"
+          fullWidth
+          disabled={isLoading}
+          error={!!passwordError}
+          helperText={passwordError}
+        />
 
-          <Button
-            style={{ marginTop: 20 }}
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            disabled={isLoading}
-            startIcon={isLoading && <CircularProgress size={14} color="#fff" />}
-          >
-            Регистрация
-          </Button>
-        </form>
-      </>
-    );
-  }
-}
+        <Button
+          style={{ marginTop: 20 }}
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          disabled={isLoading}
+          startIcon={
+            isLoading && <CircularProgress size={14} color="primary" />
+          }
+        >
+          Зарегистрироваться
+        </Button>
+        <div className={s.alreadyRegistration}>
+          <span>Уже зарегистрирован? </span>
+          <span className={s.toggleButton} onClick={toggleForm}>
+            Войти
+          </span>
+        </div>
+      </form>
+    </>
+  );
+};
+
+RegistrationForm.propTypes = {
+  toggleForm: PropTypes.func,
+};
+
+export default RegistrationForm;

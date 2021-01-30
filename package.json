@@ -5,11 +5,14 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "loft-taxi-mui-theme": "^1.2.0",
+    "mapbox-gl": "^2.0.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
+    "react-test-renderer": "^17.0.1",
     "react-toastify": "^6.2.0",
     "web-vitals": "^0.2.4"
   },
@@ -36,5 +39,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/react-hooks": "^5.0.3"
   }
 }

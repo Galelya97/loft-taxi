@@ -1,0 +1,21 @@
+* {
+  font-family: Roboto;
+}
+
+.flexWrap {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  flex-grow: 1;
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

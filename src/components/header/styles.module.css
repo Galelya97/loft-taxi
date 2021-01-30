@@ -1,0 +1,38 @@
+ul {
+  list-style: none;
+}
+
+/*button {*/
+/*  border-radius: 0;*/
+/*  border: none;*/
+/*  background: none;*/
+/*  color: white;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*button:hover {*/
+/*  color: #fdbf5a;*/
+/*}*/
+
+/*button:focus {*/
+/*  color: #fdbf5a;*/
+/*}*/
+
+.headerNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1c1a19;
+  height: 12vh;
+  min-height: 90px;
+  padding: 14px;
+}
+
+.headerList {
+  display: flex;
+}
+
+.logo {
+  width: 269px;
+  height: 61px;
+}

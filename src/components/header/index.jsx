@@ -1,37 +1,52 @@
-import React from "react";
+import React, { useContext } from "react";
+import s from "./styles.module.css";
+import logo from "../../assets/logo-header.png";
+import { Button } from "@material-ui/core";
+import PropTypes from "prop-types";
+import { Context } from "../../state/context";
 
-export class Header extends React.Component {
-  render() {
-    const { navigateTo, onLogout } = this.props;
+const Header = () => {
+  const value = useContext(Context);
 
-    return (
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <button
-                onClick={() => {
-                  navigateTo("map");
-                }}
-              >
-                Map
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  navigateTo("profile");
-                }}
-              >
-                Profile
-              </button>
-            </li>
-            <li>
-              <button onClick={onLogout}>Exit</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    );
-  }
-}
+  return (
+    <header>
+      <nav className={s.headerNav}>
+        <img src={logo} alt="логотип" className={s.logo} />
+        <ul className={s.headerList}>
+          <li>
+            <Button
+              color="primary"
+              onClick={() => {
+                value.setCurrentPage("map");
+              }}
+            >
+              Карта
+            </Button>
+          </li>
+          <li>
+            <Button
+              color="primary"
+              onClick={() => {
+                value.setCurrentPage("profile");
+              }}
+            >
+              Профиль
+            </Button>
+          </li>
+          <li>
+            <Button color="primary" onClick={value.logOut}>
+              Выйти
+            </Button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
+Header.propTypes = {
+  navigateTo: PropTypes.func,
+  onLogout: PropTypes.func,
+};
+
+export default Header;

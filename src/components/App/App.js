@@ -1,54 +1,40 @@
-import React from "react";
-import { Map } from "../map";
-import { Profile } from "../profile/Profile";
-import { Header } from "../header";
-import { LoginPage } from "../loginPage";
+import React, { useContext } from "react";
+import Map from "../map";
+import Profile from "../profile";
+import Header from "../header";
+import LoginPage from "../loginPage";
 import { ToastContainer } from "react-toastify";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
+import s from "./App.module.css";
+import { Context } from "../../state/context";
+import { withAuth } from "../../state/context";
 
 const PAGES = {
   map: <Map />,
   profile: <Profile />,
 };
 
-class App extends React.Component {
-  state = { currentPage: "home", isLoggedIn: false, userLogin: "" };
+const App = () => {
+  const { isLoggedIn, currentPage } = useContext(Context);
 
-  navigateTo = (page) => {
-    this.setState({ currentPage: page });
-  };
-  logIn = (userLogin) => {
-    this.setState({ isLoggedIn: true, userLogin: userLogin });
-  };
-  logOut = () => {
-    this.setState({ isLoggedIn: false });
-  };
+  return (
+    <>
+      <CssBaseline />
+      {isLoggedIn ? (
+        <div className={s.flexWrap}>
+          <Header />
+          <main className={s.main}>
+            <Map />
+            <section className={s.absolute}>{PAGES[currentPage]}</section>
+          </main>
+        </div>
+      ) : (
+        <LoginPage />
+      )}
+      <ToastContainer hideProgressBar />
+    </>
+  );
+};
 
-  render() {
-    const { isLoggedIn, userLogin, currentPage } = this.state;
-
-    return (
-      <>
-        <CssBaseline />
-        {isLoggedIn ? (
-          <>
-            <Header onLogout={this.logOut} navigateTo={this.navigateTo} />
-
-            {userLogin}
-
-            <main>
-              <section>{PAGES[currentPage]}</section>
-            </main>
-          </>
-        ) : (
-          <LoginPage onLogin={this.logIn} />
-        )}
-        <ToastContainer hideProgressBar />
-      </>
-    );
-  }
-}
-
-export default App;
+export default withAuth(App);

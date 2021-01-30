@@ -1,27 +1,26 @@
-import React from "react"
-import App from "./App"
-import {render, fireEvent} from "@testing-library/react"
+import React from "react";
+import App from "./App";
+import { render, fireEvent } from "@testing-library/react";
 
-jest.mock("./Home", () => ({Home: () => <div>Home component</div>}))
-jest.mock("./About", () => ({About: () => <div>About component</div>}))
-jest.mock("./Profile", () => ({Profile: () => <div>Profile component</div>}))
+jest.mock("./Home", () => ({ Home: () => <div>Home component</div> }));
+jest.mock("./Map", () => ({ About: () => <div>Map component</div> }));
+jest.mock("./Index", () => ({ Profile: () => <div>Profile component</div> }));
 
-describe ("App", () => {
-    it("renders correctly", () => {
-        const {container} = render (<App/>)
-        expect(container.innerHTML).toMatch("Home component")
-    })
+describe("App", () => {
+  it("renders correctly", () => {
+    const { container } = render(<App />);
+    expect(container.innerHTML).toMatch("Home component");
+  });
 
-describe ("clocked on navigation button", () => {
+  describe("clocked on navigation button", () => {
     it("opens the corresponding page", () => {
-        const { getByText, container } = render(<App/>)
+      const { getByText, container } = render(<App />);
 
-        fireEvent.click(getByText("About"))
-        expect (container.innerHTML).toMatch("About component")
+      fireEvent.click(getByText("Map"));
+      expect(container.innerHTML).toMatch("Map component");
 
-        fireEvent.click(getByText("Profile"))
-        expect (container.innerHTML).toMatch("Profile component")
-
-    })
-})
-})
+      fireEvent.click(getByText("Profile"));
+      expect(container.innerHTML).toMatch("Index component");
+    });
+  });
+});

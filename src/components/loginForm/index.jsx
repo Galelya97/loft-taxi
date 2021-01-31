@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import s from "./styles.module.css";
+import style from "./styles.module.css";
 import { Button, TextField, CircularProgress } from "@material-ui/core";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
@@ -19,27 +19,18 @@ const LoginForm = (props) => {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    let loginError,
-      passwordError = "";
-
     if (!login) {
       toast.error("Введите логин");
-      loginError = "Пустой логин";
+      return setLoginError("Пустой логин");
     }
 
     if (!password) {
       toast.error("Введите пароль");
-      passwordError = "Пустой пароль";
+      return setPasswordError("Пустой пароль");
     }
     // а есть ли такой
     // <- true / false
     // if () {}
-
-    if (loginError || passwordError) {
-      setLoginError(loginError);
-      setPasswordError(passwordError);
-      return;
-    }
 
     setIsLoading(true);
 
@@ -62,8 +53,8 @@ const LoginForm = (props) => {
 
   return (
     <>
-      <h1 className={s.title}>Войти</h1>
-      <form onSubmit={onSubmit} className={s.form}>
+      <h1 className={style.title}>Войти</h1>
+      <form onSubmit={onSubmit} className={style.form}>
         <TextField
           label="Email:"
           onChange={onLoginChange}
@@ -106,9 +97,9 @@ const LoginForm = (props) => {
         >
           Войти
         </Button>
-        <div className={s.newRegistration}>
+        <div className={style.newRegistration}>
           <span>Новый пользователь? </span>
-          <span className={s.toggleButton} onClick={toggleForm}>
+          <span className={style.toggleButton} onClick={toggleForm}>
             Регистрация
           </span>
         </div>

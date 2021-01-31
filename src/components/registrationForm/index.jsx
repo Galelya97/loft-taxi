@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import s from "./styles.module.css";
+import style from "./styles.module.css";
 import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
@@ -80,8 +80,8 @@ const RegistrationForm = (props) => {
 
   return (
     <>
-      <h1 className={s.title}>Регистрация</h1>
-      <form onSubmit={onSubmit} className={s.form}>
+      <h1 className={style.title}>Регистрация</h1>
+      <form onSubmit={onSubmit} className={style.form}>
         <TextField
           label="Email*"
           onChange={onLoginChange}
@@ -134,9 +134,9 @@ const RegistrationForm = (props) => {
         >
           Зарегистрироваться
         </Button>
-        <div className={s.alreadyRegistration}>
+        <div className={style.alreadyRegistration}>
           <span>Уже зарегистрирован? </span>
-          <span className={s.toggleButton} onClick={toggleForm}>
+          <span className={style.toggleButton} onClick={toggleForm}>
             Войти
           </span>
         </div>

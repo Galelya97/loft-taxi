@@ -6,9 +6,8 @@ import LoginPage from "../loginPage";
 import { ToastContainer } from "react-toastify";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
-import s from "./App.module.css";
+import style from "./App.module.css";
 import { Context } from "../../state/context";
-import { withAuth } from "../../state/context";
 
 const PAGES = {
   map: <Map />,
@@ -22,11 +21,11 @@ const App = () => {
     <>
       <CssBaseline />
       {isLoggedIn ? (
-        <div className={s.flexWrap}>
+        <div className={style.flexWrap}>
           <Header />
-          <main className={s.main}>
+          <main className={style.main}>
             <Map />
-            <section className={s.absolute}>{PAGES[currentPage]}</section>
+            <section className={style.absolute}>{PAGES[currentPage]}</section>
           </main>
         </div>
       ) : (
@@ -37,4 +36,4 @@ const App = () => {
   );
 };
 
-export default withAuth(App);
+export default App;

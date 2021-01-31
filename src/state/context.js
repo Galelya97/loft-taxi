@@ -56,26 +56,3 @@ export const AppProvider = ({ children }) => {
     </Context.Provider>
   );
 };
-
-function Card(props) {
-  return (
-    <div>
-      <h1>Title</h1>
-      <div>{props.children}</div>
-    </div>
-  );
-}
-
-export const withAuth = (WrappedComponent) => {
-  return class extends React.Component {
-    render() {
-      return (
-        <Context.Consumer>
-          {(value) => {
-            return <WrappedComponent {...value} {...this.props} />;
-          }}
-        </Context.Consumer>
-      );
-    }
-  };
-};

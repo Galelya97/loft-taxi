@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import s from "./login.module.css";
+import style from "./login.module.css";
 import logo from "../../assets/logo.png";
 import LoginForm from "../loginForm";
 import RegistrationForm from "../registrationForm";
-import PropTypes from "prop-types";
 
 const LoginPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -13,12 +12,12 @@ const LoginPage = () => {
   };
 
   return (
-    <section className={s.flexRow}>
-      <div className={s.containerLogo}>
+    <section className={style.flexRow}>
+      <div className={style.containerLogo}>
         <img src={logo} alt={"логотип"} />
       </div>
-      <div className={s.containerLogin}>
-        <div className={s.login}>
+      <div className={style.containerLogin}>
+        <div className={style.login}>
           {isLoginForm ? (
             <LoginForm toggleForm={toggleForm} />
           ) : (
@@ -28,10 +27,6 @@ const LoginPage = () => {
       </div>
     </section>
   );
-};
-
-LoginPage.propTypes = {
-  onLogin: PropTypes.func,
 };
 
 export default LoginPage;

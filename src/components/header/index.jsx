@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import s from "./styles.module.css";
+import style from "./styles.module.css";
 import logo from "../../assets/logo-header.png";
 import { Button } from "@material-ui/core";
-import PropTypes from "prop-types";
 import { Context } from "../../state/context";
 
 const Header = () => {
@@ -10,9 +9,9 @@ const Header = () => {
 
   return (
     <header>
-      <nav className={s.headerNav}>
-        <img src={logo} alt="логотип" className={s.logo} />
-        <ul className={s.headerList}>
+      <nav className={style.headerNav}>
+        <img src={logo} alt="логотип" className={style.logo} />
+        <ul className={style.headerList}>
           <li>
             <Button
               color="primary"
@@ -42,11 +41,6 @@ const Header = () => {
       </nav>
     </header>
   );
-};
-
-Header.propTypes = {
-  navigateTo: PropTypes.func,
-  onLogout: PropTypes.func,
 };
 
 export default Header;

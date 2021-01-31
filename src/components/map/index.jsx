@@ -2,7 +2,6 @@ import React from "react";
 import style from "./styles.module.css";
 import mapbox from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-// import { render } from "@testing-library/react";
 
 export default class Map extends React.Component {
   map = null;

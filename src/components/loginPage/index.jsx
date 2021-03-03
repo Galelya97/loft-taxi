@@ -3,8 +3,11 @@ import style from "./login.module.css";
 import logo from "../../assets/logo.png";
 import LoginForm from "../loginForm";
 import RegistrationForm from "../registrationForm";
+import { connect } from "react-redux";
+import { logIn, registration } from "../../saga/auth";
+import { getAuthLoading } from "../../redux/auth";
 
-const LoginPage = () => {
+const LoginPage = ({ logIn, authLoading, registration }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
 
   const toggleForm = () => {
@@ -19,9 +22,17 @@ const LoginPage = () => {
       <div className={style.containerLogin}>
         <div className={style.login}>
           {isLoginForm ? (
-            <LoginForm toggleForm={toggleForm} />
+            <LoginForm
+              loading={authLoading}
+              logIn={logIn}
+              toggleForm={toggleForm}
+            />
           ) : (
-            <RegistrationForm toggleForm={toggleForm} />
+            <RegistrationForm
+              registration={registration}
+              loading={authLoading}
+              toggleForm={toggleForm}
+            />
           )}
         </div>
       </div>
@@ -29,4 +40,16 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default connect(
+  (state) => ({
+    authLoading: getAuthLoading(state),
+  }),
+  (dispatch) => ({
+    logIn: (login, password) => {
+      dispatch(logIn({ login, password }));
+    },
+    registration: (email, password, name) => {
+      dispatch(registration({ email, password, name }));
+    },
+  })
+)(LoginPage);

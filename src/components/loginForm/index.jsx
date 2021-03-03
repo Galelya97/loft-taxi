@@ -1,44 +1,29 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import style from "./styles.module.css";
 import { Button, TextField, CircularProgress } from "@material-ui/core";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import { Context } from "../../state/context";
 
-const LoginForm = (props) => {
+const LoginForm = ({ toggleForm, logIn, loading }) => {
   const [login, setLogin] = useState("");
   const [loginError, setLoginError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { toggleForm } = props;
-
-  const value = useContext(Context);
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (!login) {
+    if (!login.trim()) {
       toast.error("Введите логин");
       return setLoginError("Пустой логин");
     }
 
-    if (!password) {
+    if (!password.trim()) {
       toast.error("Введите пароль");
       return setPasswordError("Пустой пароль");
     }
-    // а есть ли такой
-    // <- true / false
-    // if () {}
 
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-
-      value.logIn(login, password);
-    }, 2500);
+    logIn(login.trim(), password.trim());
   };
 
   const onLoginChange = (event) => {
@@ -56,7 +41,7 @@ const LoginForm = (props) => {
       <h1 className={style.title}>Войти</h1>
       <form onSubmit={onSubmit} className={style.form}>
         <TextField
-          label="Email:"
+          label="Email"
           onChange={onLoginChange}
           id="email"
           type="email"
@@ -64,13 +49,13 @@ const LoginForm = (props) => {
           error={!!loginError}
           helperText={loginError}
           fullWidth
-          disabled={isLoading}
+          disabled={loading}
           margin="normal"
           data-testid="login-input"
         />
 
         <TextField
-          label="Пароль:"
+          label="Пароль"
           onChange={onPasswordChange}
           id="password"
           type="password"
@@ -78,7 +63,7 @@ const LoginForm = (props) => {
           error={!!passwordError}
           helperText={passwordError}
           fullWidth
-          disabled={isLoading}
+          disabled={loading}
           margin="normal"
           data-testid="password-input"
         />
@@ -89,16 +74,14 @@ const LoginForm = (props) => {
           variant="contained"
           color="primary"
           fullWidth
-          disabled={isLoading}
-          startIcon={
-            isLoading && <CircularProgress size={14} color="primary" />
-          }
+          disabled={loading}
+          startIcon={loading && <CircularProgress size={14} color="primary" />}
           data-testid="login-button"
         >
           Войти
         </Button>
         <div className={style.newRegistration}>
-          <span>Новый пользователь? </span>
+          <span>Новый пользователь?</span>
           <span className={style.toggleButton} onClick={toggleForm}>
             Регистрация
           </span>

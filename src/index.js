@@ -4,16 +4,20 @@ import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
 import { theme } from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import { AppProvider } from "./state/context";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
-      <AppProvider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <App />
-      </AppProvider>
-    </MuiThemeProvider>
-  </React.StrictMode>,
+      </MuiThemeProvider>
+    </Provider>
+  </BrowserRouter>,
 
   document.getElementById("root")
 );

@@ -4,16 +4,13 @@ import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 
-const RegistrationForm = (props) => {
-  const { toggleForm } = props;
-
+const RegistrationForm = ({ toggleForm, loading, registration }) => {
   const [login, setLogin] = useState("");
   const [loginError, setLoginError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -22,19 +19,23 @@ const RegistrationForm = (props) => {
       passwordError,
       nameError = "";
 
-    if (!login) {
+    if (!login.trim()) {
       toast.error("Введите логин");
       loginError = "Пустой Логин";
     }
 
-    if (!password) {
+    if (!password.trim()) {
       toast.error("Введите пароль");
       passwordError = "Пустой пароль";
     }
 
-    if (!name) {
-      toast.error("Введите имя");
-      nameError = "Пустое имя";
+    if (!name.trim()) {
+      toast.error("Введите имя и фамилию");
+      nameError = "Пустое имя и фамилия";
+    }
+    if (name && !/\w+ \w+/g.test(name.trim())) {
+      toast.error("Введите имя и фамилию");
+      nameError = "Не соответствует формату";
     }
 
     if (loginError || passwordError || nameError) {
@@ -49,18 +50,7 @@ const RegistrationForm = (props) => {
 
     // TODO reggistration
 
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-
-      if (login === "123@qwerty") {
-        setLoginError("Такая почта уже занята");
-      } else {
-        toast.info("Вы зарегистрированы");
-        toggleForm();
-      }
-    }, 2500);
+    registration(login.trim(), password.trim(), name.trim());
   };
 
   const onLoginChange = (event) => {
@@ -90,33 +80,34 @@ const RegistrationForm = (props) => {
           name="email"
           margin="normal"
           fullWidth
-          disabled={isLoading}
+          disabled={loading}
           error={!!loginError}
           helperText={loginError}
         />
 
         <TextField
           label="Как вас зовут?*"
+          placeholder="Имя Фамилия"
           onChange={onNameChange}
           id="name"
           type="text"
           name="name"
           margin="normal"
           fullWidth
-          disabled={isLoading}
+          disabled={loading}
           error={!!nameError}
           helperText={nameError}
         />
 
         <TextField
-          label="Придумайте пароль*:"
+          label="Придумайте пароль*"
           onChange={onPasswordChange}
           id="password"
           type="password"
           name="password"
           margin="normal"
           fullWidth
-          disabled={isLoading}
+          disabled={loading}
           error={!!passwordError}
           helperText={passwordError}
         />
@@ -127,15 +118,13 @@ const RegistrationForm = (props) => {
           variant="contained"
           color="primary"
           fullWidth
-          disabled={isLoading}
-          startIcon={
-            isLoading && <CircularProgress size={14} color="primary" />
-          }
+          disabled={loading}
+          startIcon={loading && <CircularProgress size={14} color="primary" />}
         >
           Зарегистрироваться
         </Button>
         <div className={style.alreadyRegistration}>
-          <span>Уже зарегистрирован? </span>
+          <span>Уже зарегистрирован?</span>
           <span className={style.toggleButton} onClick={toggleForm}>
             Войти
           </span>

@@ -30,6 +30,33 @@ ul {
 
 .headerList {
   display: flex;
+  align-items: center;
+}
+
+li {
+  margin-right: 10px;
+}
+
+.headerLink {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.headerLink:not(:last-child) {
+  margin-right: 20px;
+}
+
+.headerLinkActive {
+  color: #fdbf5a;
+}
+
+.headerLink:hover {
+  color: #fdbf5a;
 }
 
 .logo {

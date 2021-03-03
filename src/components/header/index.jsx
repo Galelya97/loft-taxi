@@ -1,41 +1,35 @@
-import React, { useContext } from "react";
+import React from "react";
 import style from "./styles.module.css";
 import logo from "../../assets/logo-header.png";
-import { Button } from "@material-ui/core";
-import { Context } from "../../state/context";
-
-const Header = () => {
-  const value = useContext(Context);
-
+import { NavLink } from "react-router-dom";
+const Header = ({ logOut }) => {
   return (
     <header>
       <nav className={style.headerNav}>
         <img src={logo} alt="логотип" className={style.logo} />
         <ul className={style.headerList}>
           <li>
-            <Button
-              color="primary"
-              onClick={() => {
-                value.setCurrentPage("map");
-              }}
+            <NavLink
+              activeClassName={style.headerLinkActive}
+              className={style.headerLink}
+              to="/map"
             >
               Карта
-            </Button>
+            </NavLink>
           </li>
           <li>
-            <Button
-              color="primary"
-              onClick={() => {
-                value.setCurrentPage("profile");
-              }}
+            <NavLink
+              activeClassName={style.headerLinkActive}
+              className={style.headerLink}
+              to="/profile"
             >
               Профиль
-            </Button>
+            </NavLink>
           </li>
           <li>
-            <Button color="primary" onClick={value.logOut}>
+            <button className={style.headerLink} onClick={logOut}>
               Выйти
-            </Button>
+            </button>
           </li>
         </ul>
       </nav>

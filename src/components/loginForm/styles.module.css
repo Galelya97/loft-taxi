@@ -21,4 +21,5 @@
 .toggleButton {
   color: rgb(253, 191, 90);
   cursor: pointer;
+  margin-left: 6px;
 }

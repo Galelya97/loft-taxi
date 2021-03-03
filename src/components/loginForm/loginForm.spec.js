@@ -1,15 +1,9 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 import LoginForm from "./index";
-import { AppProvider } from "../../state/context";
 
 const setup = () => {
-  const utils = render(
-    <AppProvider>
-      <LoginForm />
-    </AppProvider>
-  );
+  const utils = render(<LoginForm />);
   const submit = utils.getByTestId("login-button");
   const login = utils.getByTestId("login-input");
   const loginInput = login.getElementsByTagName("input")[0];

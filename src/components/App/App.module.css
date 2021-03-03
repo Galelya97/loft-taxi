@@ -10,12 +10,10 @@
 }
 
 .main {
+  height: 0;
   flex-grow: 1;
   position: relative;
 }
 
-.absolute {
-  position: absolute;
-  top: 0;
-  left: 0;
+.map {
 }

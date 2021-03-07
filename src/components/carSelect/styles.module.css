@@ -59,3 +59,7 @@
 .item img {
   width: 100%;
 }
+
+button.button {
+  margin-top: 20px;
+}

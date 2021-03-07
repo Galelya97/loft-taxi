@@ -23,3 +23,7 @@
   cursor: pointer;
   margin-left: 6px;
 }
+
+button.buttonStyle {
+  margin-top: 20px;
+}

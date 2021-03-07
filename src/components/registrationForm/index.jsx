@@ -87,7 +87,7 @@ const RegistrationForm = ({ toggleForm, loading, registration }) => {
         />
 
         <Button
-          style={{ marginTop: 20 }}
+          className={style.button}
           type="submit"
           variant="contained"
           color="primary"

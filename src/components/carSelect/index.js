@@ -49,8 +49,8 @@ const CarSelect = ({ className }) => {
         ))}
       </ul>
       <Button
+        className={s.button}
         type="submit"
-        style={{ marginTop: 20 }}
         variant="contained"
         color="primary"
         fullWidth

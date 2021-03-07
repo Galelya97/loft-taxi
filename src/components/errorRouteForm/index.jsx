@@ -13,7 +13,7 @@ const ErrorRouteForm = () => {
         </p>
         <Link to="/profile">
           <Button
-            style={{ marginTop: 14 }}
+            className={s.button}
             size="large"
             type="submit"
             variant="contained"

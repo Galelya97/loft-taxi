@@ -20,3 +20,7 @@
   line-height: 21px;
   color: #7b7b7b;
 }
+
+button.button {
+  margin-top: 14px;
+}

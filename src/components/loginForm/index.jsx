@@ -67,7 +67,7 @@ const LoginForm = ({ toggleForm, logIn, loading }) => {
         />
 
         <Button
-          style={{ marginTop: 20 }}
+          className={style.buttonStyle}
           type="submit"
           variant="contained"
           color="primary"

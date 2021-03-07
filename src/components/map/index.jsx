@@ -18,6 +18,9 @@ export default class Map extends React.Component {
       center: [30.3056504, 59.9429126],
       zoom: 10,
     });
+    this.map.on("load", () => {
+      this.setNewRoute(this.props.route);
+    });
   }
 
   setFinishDot(dot) {
@@ -185,13 +188,8 @@ export default class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("componentDidUpdate");
     if (this.map.loaded()) {
       this.setNewRoute(this.props.route);
-    } else {
-      this.map.on("load", () => {
-        this.setNewRoute(this.props.route);
-      });
     }
   }
 
@@ -201,12 +199,10 @@ export default class Map extends React.Component {
 
   render() {
     return (
-      // <div className={style.mapWrapper}>
       <div
         className={`${style.map} ${this.props.className || ""}`}
         ref={this.mapContainer}
       />
-      // </div>
     );
   }
 }

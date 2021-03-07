@@ -3,6 +3,10 @@ import { toast } from "react-toastify";
 import s from "./styles.module.css";
 import CustomSelect from "../customSelect";
 import CarSelect from "../carSelect";
+import { connect } from "react-redux";
+import { getAddressList } from "../../redux/route";
+import { getRoute as requestRoute, requestAddressList } from "../../saga/route";
+import PropTypes from "prop-types";
 
 const RouteSelect = ({ addressList, requestAddressList, getRoute }) => {
   const [from, setFrom] = useState("");
@@ -39,6 +43,14 @@ const RouteSelect = ({ addressList, requestAddressList, getRoute }) => {
     setTo(e.target.value);
   };
 
+  const clearFrom = (e) => {
+    setFrom("");
+  };
+
+  const clearTo = (e) => {
+    setTo("");
+  };
+
   return (
     <form onSubmit={handleSubmit} className={s.card}>
       <div className={s.form}>
@@ -49,6 +61,7 @@ const RouteSelect = ({ addressList, requestAddressList, getRoute }) => {
           label="Откуда"
           clearable={true}
           onChange={handleChangeFrom}
+          onClear={clearFrom}
         />
         <CustomSelect
           className={s.formControl}
@@ -57,6 +70,7 @@ const RouteSelect = ({ addressList, requestAddressList, getRoute }) => {
           label="Куда"
           clearable={true}
           onChange={handleChangeTo}
+          onClear={clearTo}
         />
       </div>
 
@@ -65,4 +79,19 @@ const RouteSelect = ({ addressList, requestAddressList, getRoute }) => {
   );
 };
 
-export default RouteSelect;
+RouteSelect.propTypes = {
+  addressList: PropTypes.array,
+  getRoute: PropTypes.func,
+  requestAddressList: PropTypes.func,
+};
+
+export default connect(
+  (state) => ({
+    addressList: getAddressList(state),
+  }),
+  (dispatch) => ({
+    requestAddressList: () => dispatch(requestAddressList()),
+    getRoute: (address1, address2) =>
+      dispatch(requestRoute({ address1, address2 })),
+  })
+)(RouteSelect);

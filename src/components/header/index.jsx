@@ -2,6 +2,8 @@ import React from "react";
 import style from "./styles.module.css";
 import logo from "../../assets/logo-header.png";
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
+
 const Header = ({ logOut }) => {
   return (
     <header>
@@ -35,6 +37,10 @@ const Header = ({ logOut }) => {
       </nav>
     </header>
   );
+};
+
+Header.propTypes = {
+  logOut: PropTypes.func,
 };
 
 export default Header;

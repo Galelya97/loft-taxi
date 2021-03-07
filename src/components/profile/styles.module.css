@@ -37,12 +37,6 @@
   align-items: center;
 }
 
-.titleWrapper .title {
-}
-
-.titleWrapper .desc {
-}
-
 .cardWrapper {
   display: flex;
   align-items: flex-start;

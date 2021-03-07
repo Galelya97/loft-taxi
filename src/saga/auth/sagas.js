@@ -20,7 +20,10 @@ function* authorizationSaga({ payload: { login, password } }) {
     } else {
       toast.error(data.error);
     }
-  } catch (e) {}
+  } catch (e) {
+    toast.error(e.message);
+    console.error(e);
+  }
 
   yield put(setAuthLoading(false));
 }
@@ -46,7 +49,10 @@ function* registrationSaga({ payload: { email, password, name } }) {
     } else {
       toast.error(data.error);
     }
-  } catch (e) {}
+  } catch (e) {
+    toast.error(e.message);
+    console.error(e);
+  }
 
   yield put(setAuthLoading(false));
 }

@@ -9,7 +9,10 @@ function* addressListSaga() {
     const { data } = yield axios.get("https://loft-taxi.glitch.me/addressList");
 
     yield put(setAddressList(data.addresses));
-  } catch (e) {}
+  } catch (e) {
+    toast.error(e.message);
+    console.error(e);
+  }
 }
 
 function* getRouteSaga({ payload: { address1, address2 } }) {
@@ -25,7 +28,10 @@ function* getRouteSaga({ payload: { address1, address2 } }) {
       toast.error("Маршрут не может быть построен");
     }
     yield put(setRoute(data));
-  } catch (e) {}
+  } catch (e) {
+    toast.error(e.message);
+    console.error(e);
+  }
 }
 
 export default function* () {

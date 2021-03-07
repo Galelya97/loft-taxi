@@ -1,53 +1,49 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import style from "./styles.module.css";
 import { Button, TextField, CircularProgress } from "@material-ui/core";
-import { toast } from "react-toastify";
 import PropTypes from "prop-types";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const logInSchema = Yup.object().shape({
+  email: Yup.string().email().trim().required(" "),
+  password: Yup.string()
+    .trim()
+    .min(3, "Пароль меньше 3 символов")
+    .required(" "),
+});
 
 const LoginForm = ({ toggleForm, logIn, loading }) => {
-  const [login, setLogin] = useState("");
-  const [loginError, setLoginError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const onSubmit = useCallback(
+    (values) => {
+      logIn(values.email.trim(), values.password.trim());
+    },
+    [logIn]
+  );
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    if (!login.trim()) {
-      toast.error("Введите логин");
-      return setLoginError("Пустой логин");
-    }
-
-    if (!password.trim()) {
-      toast.error("Введите пароль");
-      return setPasswordError("Пустой пароль");
-    }
-
-    logIn(login.trim(), password.trim());
-  };
-
-  const onLoginChange = (event) => {
-    setLogin(event.target.value);
-    setLoginError("");
-  };
-
-  const onPasswordChange = (event) => {
-    setPassword(event.target.value);
-    setPasswordError("");
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: logInSchema,
+    onSubmit,
+  });
 
   return (
     <>
       <h1 className={style.title}>Войти</h1>
-      <form onSubmit={onSubmit} className={style.form}>
+      <form onSubmit={formik.handleSubmit} className={style.form}>
         <TextField
           label="Email"
-          onChange={onLoginChange}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          helperText={formik.touched.email ? formik.errors.email : ""}
+          error={formik.errors.email && formik.touched.email}
           id="email"
           type="email"
           name="email"
-          error={!!loginError}
-          helperText={loginError}
           fullWidth
           disabled={loading}
           margin="normal"
@@ -56,12 +52,14 @@ const LoginForm = ({ toggleForm, logIn, loading }) => {
 
         <TextField
           label="Пароль"
-          onChange={onPasswordChange}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          helperText={formik.touched.password ? formik.errors.password : ""}
+          error={formik.errors.password && formik.touched.password}
           id="password"
           type="password"
           name="password"
-          error={!!passwordError}
-          helperText={passwordError}
           fullWidth
           disabled={loading}
           margin="normal"
@@ -93,6 +91,8 @@ const LoginForm = ({ toggleForm, logIn, loading }) => {
 
 LoginForm.propTypes = {
   toggleForm: PropTypes.func,
+  logIn: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 export default LoginForm;

@@ -7,28 +7,23 @@ const CustomSelect = ({
   className,
   label,
   clearable,
-  onChange,
+  onClear,
   options = [],
   value,
   ...rest
 }) => {
-  const onClearClick = (e) => {
-    onChange({ target: { value: "" } });
-  };
-
   return (
     <FormControl className={`${s.customSelect} ${className || ""}`}>
       <InputLabel>{label}</InputLabel>
-      <Select value={value} onChange={onChange} {...rest}>
-        {options.map((item, index) => (
-          <MenuItem key={index} value={item.value}>
+      <Select value={value} {...rest}>
+        {options.map((item) => (
+          <MenuItem key={item.value} value={item.value}>
             {item.label}
           </MenuItem>
         ))}
-        3
       </Select>
-      {clearable && value ? (
-        <ClearIcon className={s.cross} onClick={onClearClick} />
+      {clearable && value && onClear ? (
+        <ClearIcon className={s.cross} onClick={onClear} />
       ) : null}
     </FormControl>
   );

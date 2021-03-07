@@ -19,7 +19,10 @@ function* getPaymentDataSaga() {
     } else {
       yield put(setCardInfo(data));
     }
-  } catch (e) {}
+  } catch (e) {
+    toast.error(e.message);
+    console.error(e);
+  }
 }
 
 function* setPaymentDataSaga({ payload: card }) {
@@ -37,7 +40,10 @@ function* setPaymentDataSaga({ payload: card }) {
       yield put(setCardInfo(card));
       yield put(setSuccessCard(true));
     }
-  } catch (e) {}
+  } catch (e) {
+    toast.error(e.message);
+    console.error(e);
+  }
 }
 
 export default function* () {

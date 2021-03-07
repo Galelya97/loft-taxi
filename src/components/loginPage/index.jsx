@@ -6,6 +6,7 @@ import RegistrationForm from "../registrationForm";
 import { connect } from "react-redux";
 import { logIn, registration } from "../../saga/auth";
 import { getAuthLoading } from "../../redux/auth";
+import PropTypes from "prop-types";
 
 const LoginPage = ({ logIn, authLoading, registration }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -38,6 +39,12 @@ const LoginPage = ({ logIn, authLoading, registration }) => {
       </div>
     </section>
   );
+};
+
+LoginPage.propTypes = {
+  logIn: PropTypes.func,
+  authLoading: PropTypes.bool,
+  registration: PropTypes.func,
 };
 
 export default connect(

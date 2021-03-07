@@ -6,6 +6,7 @@ import { Switch } from "react-router-dom";
 import PrivateRoute from "../privetComponent";
 import Main from "../main";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const App = ({ isLoggedIn }) => {
   return (
@@ -30,6 +31,10 @@ const App = ({ isLoggedIn }) => {
       <ToastContainer hideProgressBar />
     </>
   );
+};
+
+App.prototype = {
+  isLoggedIn: PropTypes.bool,
 };
 
 export default connect(

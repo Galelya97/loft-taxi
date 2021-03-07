@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import s from "./styles.module.css";
 import { Button } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const CarCard = ({ title, cost, selected, onClick, img }) => (
   <li className={`${s.item} ${selected ? s.selected : null}`} onClick={onClick}>
@@ -38,12 +39,12 @@ const CarSelect = ({ className }) => {
   return (
     <div className={`${s.card} ${className || ""}`}>
       <ul className={s.list}>
-        {cardsInfo.map((item, index) => (
+        {cardsInfo.map((item) => (
           <CarCard
             {...item}
-            selected={selected === index}
-            onClick={() => setSelected(index)}
-            key={index}
+            selected={selected === item.title}
+            onClick={() => setSelected(item.title)}
+            key={item.title}
           />
         ))}
       </ul>
@@ -58,6 +59,18 @@ const CarSelect = ({ className }) => {
       </Button>
     </div>
   );
+};
+
+CarCard.propTypes = {
+  title: PropTypes.string,
+  cost: PropTypes.number,
+  selected: PropTypes.bool,
+  onClick: PropTypes.func,
+  img: PropTypes.string,
+};
+
+CarSelect.propTypes = {
+  className: PropTypes.string,
 };
 
 export default CarSelect;

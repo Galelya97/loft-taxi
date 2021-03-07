@@ -49,5 +49,11 @@ describe("LoginForm", () => {
       expect(loginInput.getAttributeNode("disabled")).toBeTruthy();
       expect(passwordInput.getAttributeNode("disabled")).toBeTruthy();
     });
+    it("should", function () {
+      expect(loginInput.getAttributeNode("disabled")).toBeNull();
+      expect(passwordInput.getAttributeNode("disabled")).toBeNull();
+
+      submit.click();
+    });
   });
 });

@@ -1,115 +1,89 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import style from "./styles.module.css";
 import { Button, CircularProgress, TextField } from "@material-ui/core";
-import { toast } from "react-toastify";
 import PropTypes from "prop-types";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const registrationSchema = Yup.object().shape({
+  email: Yup.string().email().trim().required(" "),
+  name: Yup.string().trim().required(" "),
+  password: Yup.string()
+    .trim()
+    .min(3, "Пароль меньше 3 символов")
+    .required(" "),
+});
 
 const RegistrationForm = ({ toggleForm, loading, registration }) => {
-  const [login, setLogin] = useState("");
-  const [loginError, setLoginError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [name, setName] = useState("");
-  const [nameError, setNameError] = useState("");
+  const onSubmit = useCallback(
+    (values) => {
+      registration(
+        values.email.trim(),
+        values.password.trim(),
+        values.name.trim()
+      );
+    },
+    [registration]
+  );
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    let loginError,
-      passwordError,
-      nameError = "";
-
-    if (!login.trim()) {
-      toast.error("Введите логин");
-      loginError = "Пустой Логин";
-    }
-
-    if (!password.trim()) {
-      toast.error("Введите пароль");
-      passwordError = "Пустой пароль";
-    }
-
-    if (!name.trim()) {
-      toast.error("Введите имя и фамилию");
-      nameError = "Пустое имя и фамилия";
-    }
-    if (name && !/\w+ \w+/g.test(name.trim())) {
-      toast.error("Введите имя и фамилию");
-      nameError = "Не соответствует формату";
-    }
-
-    if (loginError || passwordError || nameError) {
-      setLoginError(loginError);
-      setPasswordError(passwordError);
-      setNameError(nameError);
-      return;
-    }
-    // а есть ли такой
-    // <- true / false
-    // if () {}
-
-    // TODO reggistration
-
-    registration(login.trim(), password.trim(), name.trim());
-  };
-
-  const onLoginChange = (event) => {
-    setLogin(event.target.value);
-    setLoginError("");
-  };
-
-  const onPasswordChange = (event) => {
-    setPassword(event.target.value);
-    setPasswordError("");
-  };
-
-  const onNameChange = (event) => {
-    setName(event.target.value);
-    setNameError("");
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      name: "",
+      password: "",
+    },
+    validationSchema: registrationSchema,
+    onSubmit,
+  });
 
   return (
     <>
       <h1 className={style.title}>Регистрация</h1>
-      <form onSubmit={onSubmit} className={style.form}>
+      <form onSubmit={formik.handleSubmit} className={style.form}>
         <TextField
           label="Email*"
-          onChange={onLoginChange}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          helperText={formik.touched.email ? formik.errors.email : ""}
+          error={formik.errors.email && formik.touched.email}
           id="email"
           type="email"
           name="email"
           margin="normal"
           fullWidth
           disabled={loading}
-          error={!!loginError}
-          helperText={loginError}
         />
 
         <TextField
           label="Как вас зовут?*"
           placeholder="Имя Фамилия"
-          onChange={onNameChange}
+          onChange={formik.handleChange}
+          value={formik.values.name}
+          onBlur={formik.handleBlur}
+          helperText={formik.touched.name ? formik.errors.name : ""}
+          error={formik.errors.name && formik.touched.name}
           id="name"
           type="text"
           name="name"
           margin="normal"
           fullWidth
           disabled={loading}
-          error={!!nameError}
-          helperText={nameError}
         />
 
         <TextField
           label="Придумайте пароль*"
-          onChange={onPasswordChange}
+          onChange={formik.handleChange}
+          value={formik.values.password}
+          onBlur={formik.handleBlur}
+          helperText={formik.touched.password ? formik.errors.password : ""}
+          error={formik.errors.password && formik.touched.password}
           id="password"
           type="password"
           name="password"
           margin="normal"
           fullWidth
           disabled={loading}
-          error={!!passwordError}
-          helperText={passwordError}
         />
 
         <Button
@@ -136,6 +110,8 @@ const RegistrationForm = ({ toggleForm, loading, registration }) => {
 
 RegistrationForm.propTypes = {
   toggleForm: PropTypes.func,
+  loading: PropTypes.bool,
+  registration: PropTypes.func,
 };
 
 export default RegistrationForm;

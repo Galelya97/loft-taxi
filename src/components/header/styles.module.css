@@ -2,22 +2,6 @@ ul {
   list-style: none;
 }
 
-/*button {*/
-/*  border-radius: 0;*/
-/*  border: none;*/
-/*  background: none;*/
-/*  color: white;*/
-/*  cursor: pointer;*/
-/*}*/
-
-/*button:hover {*/
-/*  color: #fdbf5a;*/
-/*}*/
-
-/*button:focus {*/
-/*  color: #fdbf5a;*/
-/*}*/
-
 .headerNav {
   display: flex;
   justify-content: space-between;
@@ -38,7 +22,7 @@ li {
 }
 
 .headerLink {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
   background: none;
   border: none;

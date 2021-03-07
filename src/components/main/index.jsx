@@ -8,6 +8,7 @@ import Profile from "../profile";
 import { connect } from "react-redux";
 import { authLogOut } from "../../redux/auth";
 import { getRoute } from "../../redux/route";
+import PropTypes from "prop-types";
 
 const Main = ({ logOut, route }) => {
   return (
@@ -23,6 +24,11 @@ const Main = ({ logOut, route }) => {
       </main>
     </div>
   );
+};
+
+Main.propTypes = {
+  logOut: PropTypes.func,
+  route: PropTypes.array,
 };
 
 export default connect(

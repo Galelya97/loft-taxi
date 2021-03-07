@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import * as Yup from "yup";
 import s from "./styles.module.css";
 import { Button, TextField } from "@material-ui/core";
@@ -15,6 +15,7 @@ import {
 } from "../../redux/payment";
 import { setPaymentData } from "../../saga/payment";
 import SuccessPayment from "../successPaymentForm";
+import PropTypes from "prop-types";
 
 const cardSchema = Yup.object().shape({
   name: Yup.string()
@@ -64,6 +65,23 @@ const Profile = ({
       cvv: cvc,
     });
   }, [cardName, cardNumber, expiryDate, cvc]);
+
+  const formatDate = useMemo(
+    () =>
+      formik.values.date.trim() === "/"
+        ? "00/00"
+        : formik.values.date.replace(/ /g, "0"),
+    [formik.values.date]
+  );
+
+  const formatNumber = useMemo(
+    () =>
+      formik.values.number.trim()
+        ? formik.values.number.trim() +
+          "0000 0000 0000 0000".substr(formik.values.number.trim().length)
+        : "0000 0000 0000 0000",
+    [formik.values.number]
+  );
 
   return (
     <div className={s.profileWrapper}>
@@ -137,20 +155,9 @@ const Profile = ({
             <div className={s.cardInfo}>
               <div className={s.row}>
                 <img src={logo} className={s.icon} />
-                <div className={s.date}>
-                  {formik.values.date.trim() === "/"
-                    ? "00/00"
-                    : formik.values.date.replace(/ /g, "0")}
-                </div>
+                <div className={s.date}>{formatDate}</div>
               </div>
-              <div className={s.number}>
-                {formik.values.number.trim()
-                  ? formik.values.number.trim() +
-                    "0000 0000 0000 0000".substr(
-                      formik.values.number.trim().length
-                    )
-                  : "0000 0000 0000 0000"}
-              </div>
+              <div className={s.number}>{formatNumber}</div>
               <div className={s.row}>
                 <img src={forCard} className={s.icon} />
                 <img src={masterCard} className={s.icon} />
@@ -172,6 +179,13 @@ const Profile = ({
       )}
     </div>
   );
+};
+
+Profile.propTypes = {
+  cardInfo: PropTypes.object,
+  setPaymentData: PropTypes.func,
+  isSuccessCard: PropTypes.bool,
+  setSuccessCard: PropTypes.func,
 };
 
 export default connect(

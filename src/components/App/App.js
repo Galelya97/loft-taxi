@@ -33,7 +33,7 @@ const App = ({ isLoggedIn }) => {
   );
 };
 
-App.prototype = {
+App.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 

@@ -1,0 +1,30 @@
+.card_wrapper {
+  background: #ffffff;
+  box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  max-width: 100%;
+  max-height: 100%;
+  width: 500px;
+  overflow: auto;
+}
+
+.title {
+  margin-bottom: 14px;
+  font-size: 36px;
+  line-height: 42px;
+  color: #000000;
+}
+
+.card {
+  margin: 39px 41px;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 21px;
+  color: #7b7b7b;
+}
+
+.button_form {
+  margin-top: 14px;
+}

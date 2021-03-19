@@ -1,0 +1,52 @@
+.loginPage {
+  background-color: aqua;
+  width: 100vw;
+  height: 100vh;
+  /*background-image: url("../../assets/loginPage-background.jpg");*/
+  /*background-position: center center;*/
+  /*background-size: cover;*/
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100vw;
+  height: 100vh;
+}
+
+.containerLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  width: 34%;
+}
+
+.containerLogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/map-backgroun.png");
+  width: 66%;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 56px 112px;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+.login__title {
+  margin: 0;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}

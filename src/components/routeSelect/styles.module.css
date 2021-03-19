@@ -1,0 +1,24 @@
+.card {
+  background: #ffffff;
+  box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  max-width: 100%;
+  max-height: 100%;
+  width: 500px;
+  overflow: auto;
+}
+
+.form {
+  padding: 16px 20px;
+}
+
+.formControl {
+  width: 100%;
+}
+
+.formControl:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.carSelect {
+}

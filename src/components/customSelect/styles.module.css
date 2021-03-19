@@ -1,0 +1,12 @@
+.customSelect {
+  position: relative;
+}
+
+.cross {
+  position: absolute;
+  right: 26px;
+  bottom: 6px;
+  cursor: pointer;
+  color: #c4c4c4;
+  font-size: 20px !important;
+}
